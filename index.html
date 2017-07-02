@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    {{message}}, {{name}}
+    <img v-bind:src="url">
+  </div>
+  <div title="im fucking genius">wtf</div>
+  <script>
+    var message = {a: 1}
+    var name = 'hello vue';
+    var url = 'http://www.w3school.com.cn/i/eg_tulip.jpg';
+    var vm = new Vue({
+      el: '#app',
+      data:{
+        message: message,
+        name: name,
+        url: url
+      },
+    })
+
+    function Vue(options){
+      this.$data = options.data;
+      options.vm = this;
+      for(let attr in options.data){
+        options.vm[attr] = options.data[attr];
+        Object.defineProperty(options.data, attr,{
+          set: function(x){options.vm[attr] = x},
+          get: function(){return options.vm[attr] }
+        })
+      }
+    }
+  </script>
+</body>
+</html>
